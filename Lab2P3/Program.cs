@@ -1,4 +1,9 @@
-﻿using System;
+﻿/*
+ * Tajbir Sandhu
+ * 9/11/2019
+ * CECS 275
+ */
+using System;
 
 public class Program
 {
@@ -8,6 +13,9 @@ public class Program
         Number myNumber = new Number(100000);
         myNumber.PrintMoney();
         myNumber.PrintNumber();
+        myNumber.PrintDecimal();
+        myNumber.PrintMoney();
+        myNumber.PrintHexadecimal();
     }
 }
 
@@ -31,6 +39,7 @@ class Number
 
     private int _value;
 
+    //creates a property to edit _value
     public int Value
     {
         get { return _value; }
@@ -45,6 +54,21 @@ class Number
     public void PrintNumber()
     {
         _printHelper.PrintNumber(_value);
+    }
+
+    public void PrintDecimal()
+    {
+        _printHelper.PrintDecimal(_value);
+    }
+
+    public void PrintHexadecimal()
+    {
+        _printHelper.PrintHexadecimal(_value);
+    }
+
+    public void PrintTemperature()
+    {
+        _printHelper.PrintTemperature(_value);
     }
 }
 
@@ -72,7 +96,8 @@ public class PrintHelper
     {
         //call delegate method before going to print
         if (beforePrintEvent != null)
-            beforePrintEvent("PrintNumber", EventArgs.Empty);
+            //raises the event
+            beforePrintEvent(this, EventArgs.Empty);
 
         Console.WriteLine("Number: {0,-12:N0}", num);
     }
@@ -80,7 +105,7 @@ public class PrintHelper
     public void PrintDecimal(int dec)
     {
         if (beforePrintEvent != null)
-            beforePrintEvent("PrintDecimal", EventArgs.Empty);
+            beforePrintEvent(this, EventArgs.Empty);
 
         Console.WriteLine("Decimal: {0:G}", dec);
     }
@@ -88,7 +113,7 @@ public class PrintHelper
     public void PrintMoney(int money)
     {
         if (beforePrintEvent != null)
-            beforePrintEvent("PrintMoney", EventArgs.Empty);
+            beforePrintEvent(this, EventArgs.Empty);
 
         Console.WriteLine("Money: {0:C}", money);
     }
@@ -96,14 +121,14 @@ public class PrintHelper
     public void PrintTemperature(int num)
     {
         if (beforePrintEvent != null)
-            beforePrintEvent("PrintTemperature", EventArgs.Empty);
+            beforePrintEvent(this, EventArgs.Empty);
 
         Console.WriteLine("Temperature: {0,4:N1} F", num);
     }
     public void PrintHexadecimal(int dec)
     {
         if (beforePrintEvent != null)
-            beforePrintEvent("PrintHexadecimal", EventArgs.Empty);
+            beforePrintEvent(this, EventArgs.Empty);
 
         Console.WriteLine("Hexadecimal: {0:X}", dec);
     }
